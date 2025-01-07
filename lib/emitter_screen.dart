@@ -33,11 +33,11 @@ class _MyAppState extends State<EmitterScreen> {
   Future<void> _everlinkPlayVolume(double volume, bool loudSpeaker) async {
     try {
       await _everlinkSdk.playVolume(volume, loudSpeaker);
-      print('Volume changed successfully.');
+      log('Volume changed successfully.');
     } on EverlinkError catch (e) {
-      print('Error occurred: ${e.toString()}');
+      log('Error occurred: ${e.toString()}');
     } catch (e) {
-      print('Unexpected error: $e');
+      log('Unexpected error: $e');
     }
   }
 
@@ -75,10 +75,6 @@ class _MyAppState extends State<EmitterScreen> {
 
   Future<void> _emitToken(String token) async {
     try {
-      if (isEmitting) {
-        _everlinkStopEmitting();
-        //can only emit 1 token at a time, so stop any token currently emitting
-      }
       isEmitting = true;
       await _everlinkSdk.startEmittingToken(token);
       log('Started emitting token successfully.');
